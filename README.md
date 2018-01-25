@@ -29,3 +29,8 @@ create-org.py leverages a secondary input.py script that houses your Meraki API 
 
 There is only one line found within input.py in the format of:
 EG: key = '<your Meraki API key here'
+
+Revisions actively being made:
+- read input from a CSV file
+- create Orgs, retrieve Org IDs
+- create VLANS, assign ports to VLANs, create firewall rules
