@@ -24,3 +24,8 @@ EG:
                 "name": "org-test3"
         }
 ]
+
+create-org.py leverages a secondary input.py script that houses your Meraki API key which is used to authenticate you for API use.
+
+There is only one line found within input.py in the format of:
+EG: key = '<your Meraki API key here'
