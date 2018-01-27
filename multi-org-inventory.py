@@ -38,6 +38,7 @@ def main():
                     model = b['model']
                     serial = b['serial']
                     mac = b['mac']
+                    # Write to CSV File
                     writer.writerow({'Organization Name': name, 'Organization ID': orgid, 'Model': model, 'Serial': serial, 'MAC': mac})
 
 
