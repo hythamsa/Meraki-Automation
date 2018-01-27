@@ -2,7 +2,7 @@
 A collection of scripts automating the Meraki Dashboard
 
 # multi-org-inventory.py (Python 2.x)
-Reaches out to the Meraki Dashboard collecting inventory on each Organization you are permitted access into and then dumping the data into a CSV file. A secondary support python script ( input.py ... or whatever you'd like to name it, but be sure to modify the relevant import line under def main(): ) is used for authentication purposes to fully automate the collection for you.
+Reaches out to the Meraki Dashboard collecting inventory on each Organization you are granted access and then dumping the data into a CSV file. A secondary support python script ( input.py ... or whatever you'd like to name it, but be sure to modify the relevant import line under def main(): ) is used for authentication purposes to fully automate the data collection.
 
 There is only one line in input.py in the format of:
 - EG: key = '<your Meraki API key here'
