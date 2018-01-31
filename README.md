@@ -41,7 +41,7 @@ Revisions actively being made:
 
 Retrieve firweall rules from an organization and an associated network to be dumped into a CSF file:w
 . A secondary support file (input.py) accepts the following parameters:
-- key = <Meraki API Key>
+- key = '<Meraki API Key>'
 - org_name = Organization Name where network resides
 - net_name = Network Name to retrieve
 
