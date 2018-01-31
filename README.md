@@ -39,10 +39,13 @@ Revisions actively being made:
 
 # get_fwrules.py (Python 2.x)
 
-Retrieve firweall rules from an organization and an associated network to be dumped into a CSF file:w
-. A secondary support file (input.py) accepts the following parameters:
-- key = '<Meraki API Key>'
-- org_name = Organization Name where network resides
-- net_name = Network Name to retrieve
+Retrieve firweall rules from an organization and an associated network to be dumped into a CSV file.
 
-If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input for the necessary data. Some additional error correction will be put into place shortly.
+A secondary support file (input.py) accepts the following parameters:
+- key = Meraki API Key
+- org_name = Organization Name where network resides (This is case sensitive!)
+- net_name = Network Name to retrieve (This is case sensitive!)
+
+If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input prompting the user for required information. 
+
+Additional input validation will be configured over the coming days.
