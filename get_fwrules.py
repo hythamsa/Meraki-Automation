@@ -6,7 +6,7 @@ try:
     org_name = input.org_name
     net_name = input.net_name
 except ImportError:
-    print('Looks like there was an error inputting your variables. Please enter the correct informatino now: ')
+    print('Looks like there was an error inputting your variables. Please enter the correct information now: ')
     key = str(raw_input('Enter your Meraki API key: '))
     org_name = str(raw_input('Enter the organization name you would like to search: '))
     net_name = str(raw_input('Enter the network name you are searching for: '))
