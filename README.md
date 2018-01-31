@@ -36,3 +36,13 @@ Revisions actively being made:
 - read input from a CSV file
 - create Orgs, retrieve Org IDs
 - create VLANS, assign ports to VLANs, create firewall rules
+
+# get_fwrules.py (Python 2.x)
+
+Retrieve firweall rules from an organization and an associated network to be dumped into a CSF file:w
+. A secondary support file (input.py) accepts the following parameters:
+- key = <Meraki API Key>
+- org_name = Organization Name where network resides
+- net_name = Network Name to retrieve
+
+If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input for the necessary data. Some additional error correction will be put into place shortly.
