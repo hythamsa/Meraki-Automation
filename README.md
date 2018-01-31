@@ -48,4 +48,4 @@ A secondary support file (input.py) accepts the following parameters:
 
 If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input prompting the user for required information. 
 
-Additional input validation will be configured over the coming days.
+Additional input validation will be configured over the coming days along with a code clean-up.
