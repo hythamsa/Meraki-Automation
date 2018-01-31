@@ -51,8 +51,6 @@ def main():
         getfwrules = json.loads(requests.get(baseuri + 'networks/' + netid + '/l3FirewallRules/',headers=head).content)
 
         for i in getfwrules:
-
-       
             comment = i['comment']
             policy = i['policy']
             protocol = i['protocol']
@@ -61,7 +59,8 @@ def main():
             srcport = i['srcPort']
             srccidr = i['srcCidr']
             syslog = i['syslogEnabled']
-
+            
+            # Write out to CSV
             writer.writerow({'Comment': comment, 'Policy': policy, 'Protocol(s)': protocol, 'Source Port(s)': srcport, 'Source Address(es)': srccidr, 'Destination Port(s)': destport, 'Destination Address(es)': destcidr, 'Syslog': syslog})
 
 
