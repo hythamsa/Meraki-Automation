@@ -40,10 +40,6 @@ def main():
     for netname in getnetid:
         if netname['name'] == net_name:
             netid = netname['id']
-    
-    
-    #print("")
-    #print ('The OrgID for %s is %s and the requested associated network is %s') % (org_name, orgid, netid)
 
     # Define CSV file write paramters
     with open (net_name + '_' 'FWRules_' + str(today) + '.csv', 'w') as csvfile:
