@@ -1,4 +1,4 @@
-import csv, json, requests, datetime
+import csv, json, requests, datetime, sys
 
 try:
     import input
@@ -24,24 +24,35 @@ head = {
 today = datetime.date.today()
 baseuri = 'https://api.meraki.com/api/v0/'
 
+def getorgid():
+    try:
+        getorgid = json.loads(requests.get(baseuri + 'organizations/',headers=head).content)
 
-def main():
+        for orgname in getorgid:
+            if orgname['name'] == org_name:
+                return orgname['id']
+    except:
+        sys.exit(2)
 
-    # Grab organization ID
-    getorgid = json.loads(requests.get(baseuri + 'organizations/', headers=head).content)
 
-    for orgname in getorgid:
-        if orgname['name'] == org_name:
-            orgid = orgname['id']
+def getnetid():
+    try:
+        getnetid = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/networks/',headers=head).content)
 
-    # Grab the Network ID
-    getnetid = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/networks/',headers=head).content)
+        for netname in getnetid:
+            if netname['name'] == net_name:
+                return netname['id']
+    except:
+        sys.exit(2)
 
-    for netname in getnetid:
-        if netname['name'] == net_name:
-            netid = netname['id']
 
-    # Define CSV file write paramters
+
+if __name__ == '__main__':
+    orgid = getorgid()
+    netid = getnetid()
+
+
+        # Define CSV file write paramters
     with open (net_name + '_' 'FWRules_' + str(today) + '.csv', 'w') as csvfile:
         fieldnames = ['Comment', 'Policy', 'Protocol(s)', 'Source Port(s)', 'Source Address(es)', 'Destination Port(s)', 'Destination Address(es)', 'Syslog']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -59,10 +70,5 @@ def main():
             srcport = i['srcPort']
             srccidr = i['srcCidr']
             syslog = i['syslogEnabled']
-            
-            # Write out to CSV
+
             writer.writerow({'Comment': comment, 'Policy': policy, 'Protocol(s)': protocol, 'Source Port(s)': srcport, 'Source Address(es)': srccidr, 'Destination Port(s)': destport, 'Destination Address(es)': destcidr, 'Syslog': syslog})
-
-
-if __name__ == '__main__':
-    main()
