@@ -32,6 +32,6 @@ if __name__ == '__main__':
     #######################################################
     try:
         for i in data:
-            org = json.loads(requests.post(uri,params=i,headers=head).content)
+            org = requests.post(uri,params=i,headers=head)
     except:
         sys.exit(readme())
