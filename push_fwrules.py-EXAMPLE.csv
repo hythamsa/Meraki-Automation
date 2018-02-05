@@ -1,0 +1,4 @@
+org name,network name,comment,policy,protocol,srcPort,srcCidr,destPort,destCidr,syslogEnabled
+Org 1,Net 1,rule 1,allow,udp,any,any,443,1.1.1.0/24,FALSE
+Org 1,Net 1,rule 2,allow,tcp,any,any,22,2.2.2.0/24,FALSE
+Org 1,Net 1,rule 3,allow,tcp,any,any,80,3.3.3.0/24,FALSE
