@@ -41,7 +41,6 @@ for net in getnetid:
         netid = net['id']
 
 # Push security policy to device
-
 try:
     data = []
     with open('firewall-rules.csv', 'r') as csvfile:
