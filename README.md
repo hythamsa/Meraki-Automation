@@ -72,7 +72,7 @@ Be sure to modify the "head" variable and input your Meraki API key.
 
 head = {
         'content-type': 'application/json',
-        'x-cisco-meraki-api-key': <PUT YOUR MERAKI API KEY HERE>
+        'x-cisco-meraki-api-key': 'PUT YOUR MERAKI API KEY HERE'
         }
 
 
