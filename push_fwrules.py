@@ -1,7 +1,4 @@
-# Update firewall rules to your Meraki MX device via a CSV file. Refer to Readme and example CSV file for more information.
-# Code clean-up to come with additional error handling, and UDFs
-
-import json, requests, sys, csv
+import json, requests, json, sys, csv
 
 try:
     import input
@@ -19,42 +16,69 @@ head = {
         }
 
 
-# Read CSV file to obtain parameters to be passed to API
-with open('firewall-rules.csv', 'r')as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        orgname = row['org name']
-        netname = row['network name']
-        
+def getorgname():
+    try:
 
-        # Obtain Org ID for organization defined in CSV
-        getorgid = json.loads(requests.get(baseuri + 'organizations/',headers=head).content)
+        # Open CSV, retrieve org/net name, and get org ID
+        with open('firewall-rules.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                return row['org name']
+    except:
+        sys.exit(2)
 
+
+def getorgid():
+    try:
+        getorgid = json.loads(requests.get(baseuri + 'organizations/', headers=head).content)
 
         for org in getorgid:
             if org['name'] == orgname:
-                orgid = org['id']
+                return org['id']
+    except:
+        sys.exit(2)
 
 
-# Obtain Network ID for network name defined in CSV
-getnetid = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/networks/',headers=head).content)
+def getnetname():
+    try:
+        with open('firewall-rules.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                return row['network name']
+    except:
+        sys.exit(2)
 
-for net in getnetid:
-    if net['name'] == netname:
-        netid = net['id']
 
-# Push security policy to device
-try:
-    data = []
-    with open('firewall-rules.csv', 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            data.append(row)
-            
-    pushpolicy = requests.put('https://api.meraki.com/api/v0/networks/%s/l3FirewallRules/' % netid, headers=head, data=json.dumps({'rules': data}))
-    
-    # Return code and print output
-    print pushpolicy.status_code
-    print pushpolicy.content
-except:
-    sys.exit(2)
+def getnetid():
+    try:
+        getnetid = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/networks/',headers=head).content)
+
+        for net in getnetid:
+            if net['name'] == netname:
+                return net['id']
+    except:
+        sys.exit(2)
+
+
+def pushfwrules():
+    try:
+        data = []
+        with open('firewall-rules.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                data.append(row)
+
+        pushpolicy = requests.put('https://api.meraki.com/api/v0/networks/%s/l3FirewallRules/' % netid, headers=head, data=json.dumps({'rules': data}))
+        print pushpolicy.status_code
+        print pushpolicy.content
+    except:
+        sys.exit(2)
+
+
+if __name__ == '__main__':
+    orgname = getorgname()
+    orgid = getorgid()
+    netname = getnetname()
+    netid = getnetid()
+
+    pushfwrules()
