@@ -46,7 +46,7 @@ A secondary support file (input.py) accepts the following parameters:
 - org_name = Organization Name where network resides (This is case sensitive!)
 - net_name = Network Name to retrieve (This is case sensitive!)
 
-If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input prompting the user for required information.
+If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input prompting the user for required information. Please note that the organization name AND the network name are case sensitive and MUST be typed exactly as they are found within your Meraki Dashboard.
 
 # push_fwrules.py (Python 2.x)
 Automate the deployment of a single organization and a single network via a user generated CSV file. A supplied example CSV file has been provided to better understand the data required for a successful deployment. Please note that the organization name AND the network name are case sensitive and MUST be typed exactly as they are found within your Meraki Dashboard... this is where the additional error handling will come in to play.
