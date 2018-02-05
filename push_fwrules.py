@@ -49,7 +49,9 @@ try:
         for row in reader:
             data.append(row)
             
-    pushpolicy = requests.put('https://api.meraki.com/api/v0/networks/%s/l3FirewallRules/' % netid, headers=head, data=json.dumps({'rules': data})) 
+    pushpolicy = requests.put('https://api.meraki.com/api/v0/networks/%s/l3FirewallRules/' % netid, headers=head, data=json.dumps({'rules': data}))
+    
+    # Return code and print output
     print pushpolicy.status_code
     print pushpolicy.content
 except:
