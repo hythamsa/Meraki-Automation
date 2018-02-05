@@ -30,7 +30,7 @@ EG:
 create-org.py leverages a secondary input.py script that houses your Meraki API key which is used to authenticate you for API use.
 
 There is only one line found within input.py in the format of:
-EG: key = 'your Meraki API key here'
+- key = 'your Meraki API key here'
 
 Revisions actively being made:
 - read input from a CSV file
@@ -49,12 +49,12 @@ A secondary support file (input.py) accepts the following parameters:
 If you do not wish to define the variables into the file, input validation is performed and will kick it back to a raw_input prompting the user for required information.
 
 # push_fwrules.py (Python 2.x)
-Automate the deployment of a single organization and a single network via a user generated CSV file. A supplied example CSV file has been provided to better understand the data required for a successful deployment.
+Automate the deployment of a single organization and a single network via a user generated CSV file. A supplied example CSV file has been provided to better understand the data required for a successful deployment. Please note that the organization name AND the network name are case sensitive and MUST be typed exactly as they are found within your Meraki Dashboard... this is where the additional error handling will come in to play.
 
 Like the other Python scripts I have written, a secondary support python script holding your authorization is required.
 
 There is only one line found within input.py in the format of:
-key = 'your Meraki API key here'
+- key = 'your Meraki API key here'
 
 If you do not wish to use this file, you may comment out the following lines of code by enclosing them with ''' like so:
 
