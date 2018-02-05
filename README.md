@@ -51,6 +51,8 @@ If you do not wish to define the variables into the file, input validation is pe
 # push_fwrules.py (Python 2.x)
 Automate the deployment of a single organization and a single network via a user generated CSV file. A supplied example CSV file has been provided to better understand the data required for a successful deployment. Please note that the organization name AND the network name are case sensitive and MUST be typed exactly as they are found within your Meraki Dashboard... this is where the additional error handling will come in to play.
 
+The script accepts the csv file as "firewall-rules.csv". If you choose to change it to a name that is easier for tracking purposes (EG. org1-fwrules.csv), be sure to modify the necessary parameters to reflect this change.
+
 Like the other Python scripts I have written, a secondary support python script holding your authorization is required.
 
 There is only one line found within input.py in the format of:
