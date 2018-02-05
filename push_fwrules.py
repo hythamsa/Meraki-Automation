@@ -1,3 +1,6 @@
+# Update firewall rules to your Meraki MX device via a CSV file. Refer to Readme and example CSV file for more information.
+# Code clean-up to come with additional error handling, and UDFs
+
 import json, requests, sys, csv
 
 try:
