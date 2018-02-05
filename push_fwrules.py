@@ -27,7 +27,7 @@ with open('firewall-rules.csv', 'r')as csvfile:
         netname = row['network name']
         
 
-        # Obtain Org ID for each organization defined in CSV
+        # Obtain Org ID for organization defined in CSV
         getorgid = json.loads(requests.get(baseuri + 'organizations/',headers=head).content)
 
 
@@ -36,7 +36,7 @@ with open('firewall-rules.csv', 'r')as csvfile:
                 orgid = org['id']
 
 
-# Obtain Network ID for each network name defined in CSV
+# Obtain Network ID for network name defined in CSV
 getnetid = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/networks/',headers=head).content)
 
 for net in getnetid:
