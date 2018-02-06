@@ -12,20 +12,7 @@ Once the above has been configured, the script will then collect and output the 
 - Organization Name, Organization ID, Model, Serial, MAC addresses, Licensed Devices (count), Expiration and Status.
 
 # create-org.py (Python 2.x)
-An incredibly rudimentary (v0.1) script written to create new organizations within the Meraki dashboard. For now the script accepts a JSON formatted input file (orgID.json) with multiple key:value pairings.
-
-EG:
-[
-        {
-                "name": "org-test1"
-        },
-        {
-                "name": "org-test2"
-        },
-        {
-                "name": "org-test3"
-        }
-]
+An incredibly rudimentary (v0.1) script written to create new organizations within the Meraki dashboard reading input from a CSV file for data input. An example CSV has been uploaded as an example... again this is an incredibly simply script.
 
 create-org.py leverages a secondary input.py script that houses your Meraki API key which is used to authenticate you for API use.
 
