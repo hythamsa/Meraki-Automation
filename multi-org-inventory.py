@@ -31,7 +31,7 @@ def main():
                 name = a['name']
                 orgid = a['id']
 
-                # Retrieve Inventory for each Org ID
+                # Retrieve Inventory for the Org ID
                 ret_org_inventory = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/inventory/',headers=head).content)
 
                 for b in ret_org_inventory:
