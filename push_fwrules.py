@@ -66,7 +66,7 @@ def pushfwrules():
         with open('firewall-rules.csv', 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                data.append(row)
+                fw.append(row)
 
         pushpolicy = requests.put('https://api.meraki.com/api/v0/networks/%s/l3FirewallRules/' % netid, headers=head, data=json.dumps({'rules': fw}))
         print pushpolicy.status_code
