@@ -1,81 +1,84 @@
-#!/usr/bin/python
+import json, requests, json, sys, csv
 
-import sys, getpass, csv
-from jsonrpclib import Server
+try:
+    import input
+    key = input.key
+except ImportError:
+    key = str(raw_input('Enter your Meraki API key: '))
+except AttributeError:
+    key = str(raw_input('Enter your Meraki API key: '))
 
+baseuri = 'https://api.meraki.com/api/v0/'
 
-def main():
-    while True:
-        try:
-            method = str(raw_input("Which input method will you use [term/t or csvinput/c]? "))
-            break
-        except ValueError:
-            print ("Please enter term/t or csvinput/c")
-            continue
-
-    if (method == "term") or (method == "t"):
-        term()
-    if (method == "csvinput") or (method == "c"):
-        csvinput()
-
-def term():
-    user = str(raw_input("Username: "))
-    passwd = getpass.getpass()
-
-    # Request switch name or IP addresses to be configured
-    input = str(raw_input("What switch or switches would you like to connect to separated by a comma: "))
-    host = input.split(",")
-        
-    # Create empty list, ask user to define total # of entries to be made, append to list
-    user_list = []
-    entries = int(raw_input("How many entries do you require? "))
-        
-    for i in range(entries):
-        user_vlanid = str(raw_input("What is the VLAN ID? "))
-        user_vlanname = str(raw_input("What is the VLAN name? "))
-
-        user_list.append({
-            "vlanid": user_vlanid,
-            "vlanname": user_vlanname
-            })
-
-        for i in user_list:
-            vlid = i['vlanid']
-            vlan_name = i['vlanname']
-
-            for a in host:
-                cmdapi = Server("http://%s:%s@%s/command-api" % (user,passwd,a))
-                vlconf = cmdapi.runCmds(1,["enable", "configure", "vlan " + vlid, "name " + vlan_name])
+head = {
+        'content-type': 'application/json',
+        'x-cisco-meraki-api-key': key
+        }
 
 
-def csvinput():
-    user = str(raw_input("Username: "))
-    passwd = getpass.getpass()
+def getorgname():
+    try:
 
-    while True:
-        try:
-            filename = str(raw_input("What is the name of your csvfile (Please append with .csv)? "))
-            if filename.lower().endswith('.csv'):
-                break
-            else:
-                print ("Please enter filename ending with .csv")
-                continue
-        except:
-            sys.exit(2)
+        # Open CSV, retrieve org/net name, and get org ID
+        with open('firewall-rules.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                return row['org name']
+    except:
+        sys.exit(2)
 
-    with open (filename, 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
 
-        for row in reader:
-            host = row['hosts']
-            vlid = row['vlan-id']
-            vname = row['vlname']
+def getorgid():
+    try:
+        getorgid = json.loads(requests.get(baseuri + 'organizations/', headers=head).content)
 
-            for a in host:
-                cmdapi = Server("http://%s:%s@%s/command-api" % (user,passwd,host))
-            #   intfconf = cmdapi.runCmds(1,["enable", "configure", "interface " + intf, "description " + descr, "no switchport", "ip address " + ip])
-                vlconf = cmdapi.runCmds(1,["enable", "configure", "vlan " + vlid, "name " + vname])
+        for org in getorgid:
+            if org['name'] == orgname:
+                return org['id']
+    except:
+        sys.exit(2)
+
+
+def getnetname():
+    try:
+        with open('firewall-rules.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                return row['network name']
+    except:
+        sys.exit(2)
+
+
+def getnetid():
+    try:
+        getnetid = json.loads(requests.get(baseuri + 'organizations/' + `orgid` + '/networks/',headers=head).content)
+
+        for net in getnetid:
+            if net['name'] == netname:
+                return net['id']
+    except:
+        sys.exit(2)
+
+
+def pushfwrules():
+    try:
+        fw = []
+        with open('firewall-rules.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                fw.append(row)
+
+        pushpolicy = requests.put('https://api.meraki.com/api/v0/networks/%s/l3FirewallRules/' % netid, headers=head, data=json.dumps({'rules': fw}))
+        print pushpolicy.status_code
+        print pushpolicy.content
+    except:
+        sys.exit(2)
 
 
 if __name__ == '__main__':
-    main()
+    orgname = getorgname()
+    orgid = getorgid()
+    netname = getnetname()
+    netid = getnetid()
+
+pushfwrules()
