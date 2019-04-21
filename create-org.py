@@ -4,7 +4,7 @@ import sys, json, requests, csv, datetime
 def readme():
     print("*************************************************************************************************************************")
     print("")
-    print("Create an orgnization or multiple organizations by reading input from a CSV file named "org.csv")
+    print("Create an orgnization or multiple organizations by reading input from a CSV file named "org.csv"")
     print("")
     print("Prior to script execution please be sure to correctly fill in the "with open" statement with the correct name of your csv")
     print("The CSV file must be located in the same working directory as the python script to execute properly.")
@@ -46,7 +46,6 @@ def main():
 
     except:
         sys.exit(readme())
-
 
 
 if __name__ == '__main__':
